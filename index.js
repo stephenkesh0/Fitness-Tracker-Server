@@ -34,7 +34,7 @@ app.use((err, req, res, next) => {
 
 // CORS configuration
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173' || "https://elta-healthcare.vercel.app/", // Update this as needed
+  origin: process.env.CLIENT_URL || 'http://localhost:5173' || "https://fitness-tracker-client-alpha.vercel.app/", // Update this as needed
   credentials: true,  // If your frontend is using cookies for authentication, set this to true
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']  // Add 'Authorization' if using auth tokens
