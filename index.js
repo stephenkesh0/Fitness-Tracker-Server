@@ -33,11 +33,24 @@ app.use((err, req, res, next) => {
 });
 
 // CORS configuration
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://fitness-tracker-client-alpha.vercel.app'
+];
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173' || "https://fitness-tracker-client-alpha.vercel.app/", // Update this as needed
-  credentials: true,  // If your frontend is using cookies for authentication, set this to true
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']  // Add 'Authorization' if using auth tokens
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // MongoDb connection function
